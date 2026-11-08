@@ -1,0 +1,72 @@
+name: release
+
+# Tag-driven release, modelled on lv24-brain: the tag must match package.json,
+# the package is verified, packed and attached to an immutable GitHub release.
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - run: npm test
+
+      - name: Verify tag matches package.json
+        run: |
+          set -euo pipefail
+          VERSION="$(node -p "require('./package.json').version")"
+          if [ "v${VERSION}" != "${GITHUB_REF_NAME}" ]; then
+            echo "tag ${GITHUB_REF_NAME} does not match package.json ${VERSION}" >&2
+            exit 1
+          fi
+
+      - name: Pack the npm tarball
+        run: |
+          set -euo pipefail
+          mkdir -p release-assets
+          npm pack --pack-destination release-assets
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          prerelease_args=()
+          case "$TAG" in
+            *-*) prerelease_args=(--prerelease) ;;
+          esac
+          # Releases are immutable: never replace assets of an existing tag;
+          # cut a new tag instead.
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "release $TAG already exists; refusing to overwrite its assets" >&2
+            exit 1
+          fi
+          gh release create "$TAG" release-assets/* \
+            --title "$TAG" \
+            --generate-notes \
+            "${prerelease_args[@]}"
