@@ -4,6 +4,7 @@
 
 [![npm](https://img.shields.io/npm/v/@lv24/instagram-official?label=npm&color=cb3837&logo=npm)](https://www.npmjs.com/package/@lv24/instagram-official)
 [![downloads](https://img.shields.io/npm/dm/@lv24/instagram-official?color=cb3837)](https://www.npmjs.com/package/@lv24/instagram-official)
+[![release](https://img.shields.io/github/v/release/LevapVeeskela/lv24-instagram-official?color=0b6b5f&logo=github)](https://github.com/LevapVeeskela/lv24-instagram-official/releases)
 [![CI](https://github.com/LevapVeeskela/lv24-instagram-official/actions/workflows/ci.yml/badge.svg)](https://github.com/LevapVeeskela/lv24-instagram-official/actions/workflows/ci.yml)
 [![GitHub Packages](https://img.shields.io/badge/GitHub%20Packages-%40levapveeskela%2Finstagram--official-24292f?logo=github)](https://github.com/LevapVeeskela/lv24-instagram-official/pkgs/npm/instagram-official)
 [![license](https://img.shields.io/badge/license-MIT-2ea44f)](LICENSE)
