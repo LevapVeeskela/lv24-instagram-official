@@ -400,6 +400,17 @@ export class GraphApiProcessor extends BaseProcessor implements IGraphApiProcess
     const token = await this.getAccessToken();
     if (!token) return Result.fail('Graph API access token required', ResponseType.LoginRequired);
 
+    const videoTypes = new Set(['VIDEO', 'REELS', 'STORIES']);
+    if (mediaType === 'CAROUSEL') {
+      return Result.fail(
+        'CAROUSEL containers require child containers and are not supported yet',
+        ResponseType.NotImplemented,
+      );
+    }
+    if (mediaType !== 'IMAGE' && !videoTypes.has(mediaType)) {
+      return Result.fail(`Unsupported media type: ${mediaType}`, ResponseType.InvalidInput);
+    }
+
     try {
       const response = await this.http.send({
         url: `${this.getBaseUrl()}/${this.getApiVersion()}/me/media`,
@@ -407,7 +418,7 @@ export class GraphApiProcessor extends BaseProcessor implements IGraphApiProcess
         query: { access_token: token },
         body: new URLSearchParams({
           ...(mediaType === 'IMAGE' && { image_url: mediaUrl }),
-          ...(mediaType === 'VIDEO' && { video_url: mediaUrl }),
+          ...(videoTypes.has(mediaType) && { video_url: mediaUrl }),
           media_type: mediaType,
           ...(caption && { caption }),
         }),

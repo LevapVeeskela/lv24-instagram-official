@@ -4,6 +4,21 @@ All notable changes to `@lv24/instagram-official` are documented here. The
 format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] — 2026-11-09
+
+### Fixed
+
+- `createMediaContainer` now sends `video_url` for `REELS` and `STORIES`
+  containers (previously only `VIDEO`), so those containers are no longer
+  created without media.
+- `CAROUSEL` containers are rejected with `NotImplemented` instead of sending
+  an invalid request; unsupported media types return `InvalidInput`.
+
+### Tests
+
+- Added coverage for REELS/STORIES `video_url` and the CAROUSEL guard
+  (25 tests total).
+
 ## [0.1.0] — 2026-11-08
 
 ### Added

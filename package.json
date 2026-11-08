@@ -1,6 +1,6 @@
 {
   "name": "@lv24/instagram-official",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Official Instagram Graph API client: OAuth2, token management and GraphApiProcessor. MIT, TypeScript.",
   "type": "module",
   "main": "./dist/index.js",

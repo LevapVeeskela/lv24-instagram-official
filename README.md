@@ -154,9 +154,10 @@ if (container.succeeded) {
 }
 ```
 
-The container API requires a publicly reachable media URL. Video and Reels
-containers are asynchronous; poll the container status before publishing in
-production.
+The container API requires a publicly reachable media URL. `REELS` and
+`STORIES` containers use `video_url`; `CAROUSEL` is not exposed yet because it
+requires child containers. Video containers are asynchronous; poll the
+container status before publishing in production.
 
 ## Token lifecycle
 
@@ -187,7 +188,7 @@ to `TokenStorage`.
 | `hideComment(commentId)` / `unhideComment(commentId)` | Moderate comments |
 | `getMentionedComments()` | Mentions |
 | `search(query, type?)` | User / hashtag / place search where available |
-| `createMediaContainer(type, url, caption?)` | Create an IMAGE / VIDEO / REELS / STORIES / CAROUSEL container |
+| `createMediaContainer(type, url, caption?)` | Create an IMAGE / VIDEO / REELS / STORIES container (carousel is not exposed yet) |
 | `publishContainer(containerId)` | Publish a container |
 | `refreshAccessToken(shortLivedToken, appSecret?)` | Exchange for a long-lived token |
 | `debugAccessToken(token?)` | Inspect token metadata |

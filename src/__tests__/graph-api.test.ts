@@ -106,6 +106,32 @@ describe('GraphApiProcessor', () => {
     expect(published.value).toBe('media1');
   });
 
+  it.each(['REELS', 'STORIES'] as const)('sends %s containers with video_url', async (mediaType) => {
+    const { processor, send } = processorWith({ status: 'ok', id: 'container1' });
+
+    const result = await processor.createMediaContainer(
+      mediaType,
+      'https://example.com/video.mp4',
+      'caption',
+    );
+
+    expect(result.succeeded).toBe(true);
+    const body = send.mock.calls[0][0].body as URLSearchParams;
+    expect(body.get('media_type')).toBe(mediaType);
+    expect(body.get('video_url')).toBe('https://example.com/video.mp4');
+    expect(body.get('image_url')).toBeNull();
+  });
+
+  it('rejects CAROUSEL containers until children are supported', async () => {
+    const { processor, send } = processorWith({ status: 'ok', id: 'container1' });
+
+    const result = await processor.createMediaContainer('CAROUSEL', 'https://example.com/a.jpg');
+
+    expect(result.succeeded).toBe(false);
+    expect(result.info.responseType).toBe(ResponseType.NotImplemented);
+    expect(send).not.toHaveBeenCalled();
+  });
+
   it('parses media insights', async () => {
     const { processor } = processorWith({ status: 'ok', media_id: '123', impressions: 10, reach: 8 });
 
