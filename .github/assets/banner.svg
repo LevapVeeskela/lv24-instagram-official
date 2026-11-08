@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-label="@lv24/instagram-official">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#070b16"/>
+      <stop offset="0.55" stop-color="#111936"/>
+      <stop offset="1" stop-color="#2a1458"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.82" cy="0.05" r="0.75">
+      <stop offset="0" stop-color="#8b5cf6" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="320" fill="url(#bg)"/>
+  <rect width="1280" height="320" fill="url(#glow)"/>
+  <rect width="1280" height="320" fill="url(#grid)"/>
+  <circle cx="1120" cy="70" r="120" fill="none" stroke="#a78bfa" stroke-opacity="0.28" stroke-width="1.5"/>
+  <circle cx="1120" cy="70" r="78" fill="none" stroke="#22d3ee" stroke-opacity="0.22" stroke-width="1.5"/>
+  <circle cx="1120" cy="70" r="8" fill="#a78bfa"/>
+  <text x="72" y="104" fill="#a78bfa" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="21" letter-spacing="5">LV24 / OFFICIAL API</text>
+  <text x="72" y="184" fill="#f8fafc" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="62" font-weight="700">@lv24/instagram-official</text>
+  <text x="72" y="238" fill="#cbd5e1" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="25">OAuth2 · tokens · Graph API</text>
+  <text x="72" y="286" fill="#94a3b8" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="18">MIT · TypeScript · Node ≥ 20 · no private dependencies</text>
+</svg>

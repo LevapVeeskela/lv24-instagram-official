@@ -1,0 +1,41 @@
+name: github-packages
+
+# Publishes a mirror of this package to GitHub Packages under the repository
+# owner's scope. The source package stays @lv24/* for npmjs; GitHub Packages
+# requires the scope to match the repository owner (@levapveeskela).
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish (must match package.json)"
+        required: true
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: github-packages-${{ inputs.version }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          registry-url: https://npm.pkg.github.com
+          scope: "@levapveeskela"
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - run: node scripts/prepare-github-package.mjs
+        env:
+          VERSION: ${{ inputs.version }}
+      - run: npm publish gh-package --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

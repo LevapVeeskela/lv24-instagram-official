@@ -1,0 +1,65 @@
+{
+  "name": "@lv24/instagram-official",
+  "version": "0.1.0",
+  "description": "Official Instagram Graph API client: OAuth2, token management and GraphApiProcessor. MIT, TypeScript.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LevapVeeskela/lv24-instagram-official.git"
+  },
+  "homepage": "https://github.com/LevapVeeskela/lv24-instagram-official#readme",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "oxlint src",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "dependencies": {
+    "@lv24/kernel": "0.1.0"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "vitest": "5.1.0",
+    "@types/node": "26.6.6",
+    "oxlint": "1.92.0"
+  },
+  "author": {
+    "name": "LevapVeeskela",
+    "url": "https://github.com/LevapVeeskela"
+  },
+  "keywords": [
+    "instagram",
+    "instagram-graph-api",
+    "oauth2",
+    "typescript",
+    "sdk",
+    "meta",
+    "threads"
+  ],
+  "bugs": {
+    "url": "https://github.com/LevapVeeskela/lv24-instagram-official/issues"
+  }
+}
