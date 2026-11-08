@@ -36,6 +36,6 @@ jobs:
       - run: node scripts/prepare-github-package.mjs
         env:
           VERSION: ${{ inputs.version }}
-      - run: npm publish gh-package --access public
+      - run: npm publish ./gh-package --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
